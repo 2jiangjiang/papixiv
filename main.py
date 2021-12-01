@@ -2,6 +2,9 @@ import json
 
 import requests
 
+out_path = "G:\\pixiv\\"
+sources_path = out_path + "src\\"
+checkpoint_path = out_path + "checkpoint\\"
 proxies = {
     'https': 'http://localhost:29758',
     'http': 'http://localhost:29758'
@@ -66,9 +69,9 @@ def getPaintByPaintID(id):
     images_urls = pic_result["body"]["urls"]
     headers["referer"] = images_urls["original"]
     image = requests.get(images_urls["original"], proxies=proxies, headers=headers)
-    with open("G:\\pixiv\\" + id + ".jpg", "wb+") as fp:
+    with open(sources_path + id + ".jpg", "wb+") as fp:
         fp.write(image.content)
-    with open("G:\\pixiv\\" + id + ".json", "w+", encoding='utf-8') as fp:
+    with open(sources_path + id + ".json", "w+", encoding='utf-8') as fp:
         fp.write(json.dumps(pic_result, ensure_ascii=False))
     print("geted paint id %s" % id)
     getedPaint.append(id)
